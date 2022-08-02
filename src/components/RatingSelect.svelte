@@ -11,7 +11,7 @@
   }
 </script>
 
-// following update credit to someone who responded on youtube.
+<!-- // following update credit to someone who responded on youtube. -->
 <ul class="rating">
   {#each [...new Array(10)].map((_, i) => i + 1) as rating}
     <li>
