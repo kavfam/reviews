@@ -1,0 +1,28 @@
+{
+  "reviews": [
+    {
+      "id": "925991d0-599c-4539-b1e4-a3a86a1c7020",
+      "text": "once upon a time in America",
+      "rating": 10,
+      "likes": 1
+    },
+    {
+      "id": "08731497-e18b-46fa-a111-2948e3235733",
+      "text": "A Fistful of Dollars",
+      "rating": 6,
+      "likes": 2
+    },
+    {
+      "id": "ebd323e7-a7c7-429d-867f-3f2beb2e6861",
+      "text": "The Good, The Bad and the Ugly",
+      "rating": 10,
+      "likes": 1
+    },
+    {
+      "id": "a489ec2c-88d0-4c47-8d8d-766db1069209",
+      "text": "for me to be prepared for 4th grade or to be a astronaut",
+      "rating": 10,
+      "likes": 380
+    }
+  ]
+}
