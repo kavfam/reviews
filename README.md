@@ -1,107 +1,25 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework and don't mind using pre-1.0 software — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+This is Brad Travesy's Svelte Crashcourse on Youtube with a "Likes" and JSON backend (credit to Dr Nauman / Udemy Svelte course). Both instructors very good.
 
----
+if you download this, run npm install and you will have all dependencies.
 
-# svelte app
+This project is for ratings/reviews and basic to show off some features of Svelte, in particular Stores. In more than one course Ive seen Stores used for data, rather than putting data into objects/arrays in the main App.svelte file, but Stores are really much more than this. They are a dictionary of functions - see Dr Naumans course. 
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+That said, Stores are a good way of passing data around an app without having to dispatch custom events up the chain. They can also be accessed directly using $storename rather than importing, subscribing, unsubscribing, you can just prefix storename with $. And this automatically unsubscribes. Neat.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+Brads course didnt have backend. Dr Ns course did - used json / json server. As Brads course already had a store, this made moving to a backend easier. To do this, the following was required (but you dont need to do any of this if you download and run npm install). Im just explaining the changes made to Brads course to accomodate the backend json server (as per Dr Ns course).
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
+1. create an \extras folder with a db.json, with the contents in json format being the initial array that was first in App.svelte and then moved to FeedBackStore.js.
+2. npm i json-server 
+3. npx json-server extras/db.json
+4. Open browser at localhost:3000/reviews    (assuming your db.json has "reviews" as first element) and you should see the contents of the json file.
+5. in src, create subfolder \backend and in this folder create Api.js. This has async functions for fetchReviews, incLike (increments likes for review), deleteReview and addReview.
+6. Changed what Brad had as stores.js to FeedbackStore.js (in folder arc/stores) and in thie file it returns functions within FeedbackStore for subscribe, update, AddNewReview, likeReview, delReview and loadReviews. These functions within FeedbackStore call their counterpart functions in Api.js to update the backend.
+7. In Brads code you updated the store in FeedbackForm.svelte for adding. This now changes to call the FeedbackStore function addNewReview, which in turn calls the Api.js function addReview to update the backend. So, this was a simple change to handleSubmit. (I left the store update code, commented out for comparison). 
+Similarly, the FeedbackItem.svelte handleDelete() updated the store when deleting an item. Commented out that code and made another small change there to instead call the FeedbackStore.delReview() function which in turn calls the Api.js deleteReview function which updates the json backend file.
+In FeebackItem.svelte I added a Like button and this calls the FeedbackStore.likeReview() function, which, as you guessed, calls its counterpart in Api.js (deleteReview).
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+In short (says he with a smile as you just read the long), having used store, simplified the changes needed to move this to a backend. As mentioned, stores are much more than shown in Brads course and Dr Ns course takes them to another level by moving the functions of updating data into the store and again, with these in place, the final step to connect with the backend is simplified.
 
+Next up two more great instructors with Svelte crashcourses, James Q Quick, Max Schwartzmiller.
 
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-If you want to use `baseUrl` or `path` aliases within your `tsconfig`, you need to set up `@rollup/plugin-alias` to tell Rollup to resolve the aliases. For more info, see [this StackOverflow question](https://stackoverflow.com/questions/63427935/setup-tsconfig-path-in-svelte).
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+Anyone else looking forward to SvelteKit 1.0?
