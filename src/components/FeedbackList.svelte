@@ -12,7 +12,7 @@
   })
 </script>
 
-// in case of delays loading (eg getting data on slow internet connection)
+<!-- // in case of delays loading (eg getting data on slow internet connection) -->
 {#if loading}
   <div>Loading ...</div>
 {:else}
